@@ -4,7 +4,7 @@
 [![CocoaPods](http://img.shields.io/cocoapods/v/UUActionSheet.svg?style=flat)](http://cocoapods.org/?q=UUActionSheet)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/p/UUActionSheet.svg?style=flat)](http://cocoapods.org/?q=UUActionSheet)&nbsp;
 
-高仿微信、新浪微博的ActionSheet，使用方式和UIActionsheet相同。
+高仿微信、新浪微博的ActionSheet，使用方式和UIActionsheet相同，支持屏幕旋转。
 
 #Usage
 
