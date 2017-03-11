@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "UUActionSheet.h"
+#import <UUActionSheet/UUActionSheet.h>
 
 @interface ViewController ()<UUActionSheetDelegate>
 
