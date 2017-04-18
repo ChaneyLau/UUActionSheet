@@ -24,7 +24,7 @@ UUActionSheet *actionSheet = [[UUActionSheet alloc] initWithTitle:@"After the ex
                                                 cancelButtonTitle:@"Cancel"
                                            destructiveButtonTitle:@"Logout"
                                                 otherButtonTitles:@"Okay",nil];
-                                          [actionSheet showInView:self.view.window];
+[actionSheet showInView:self.view.window];
 ```
 
 ```objc
