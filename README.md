@@ -6,11 +6,9 @@
 
 仿微信、新浪微博的ActionSheet，使用方式和UIActionsheet相同，支持屏幕旋转。
 
-# Usage
-
 ![UUActionSheet](UUActionSheet.gif)
 
-### CocoaPods
+## 安装[CocoaPods]
 
 1. `pod 'UUActionSheet', '~> 1.0'`;
 2. `pod install` / `pod update`;
@@ -35,13 +33,13 @@ UUActionSheet *actionSheet = [[UUActionSheet alloc] initWithTitle:@"After the ex
 }
 ```
 
-# Requirements
+## 使用要求
 
-This library requires `iOS 7.0+` and `Xcode 7.0+`.
+* iOS 7.0 or later.
+* Xcode 7.0 or later.
+* OS X 10.10 or later.
 
+## 许可证
 
-# License
-
-UUActionSheet is provided under the MIT license. See LICENSE file for details.
-
+MIT
 
