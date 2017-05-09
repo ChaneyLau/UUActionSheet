@@ -12,6 +12,7 @@
 #define kMainScreenHeight       [UIScreen mainScreen].bounds.size.height
 #define kRowHeight              50
 #define kBlank                  5
+#define RGBColor(r,g,b,a)       [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
 @interface UUActionSheet () <UITableViewDataSource,UITableViewDelegate>
 
@@ -142,7 +143,7 @@
         label.text = _title;
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor grayColor];
-        label.font = [UIFont systemFontOfSize:14.0];
+        label.font = [UIFont systemFontOfSize:13.0];
         label.numberOfLines = 0;
         [_tableHeaderView addSubview:label];
         
@@ -172,7 +173,7 @@
         CGFloat addH = [_cancelButtonTitle length]?5:0;
         CGFloat viewH = [self getHeadHeight]+kRowHeight*[self.titles count]+addH;
         _sheetView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, viewH)];
-        _sheetView.backgroundColor = [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:1.0];
+        _sheetView.backgroundColor =  RGBColor(232.0, 232.0, 239.0, 1.0);
     }
     return _sheetView;
 }
@@ -230,7 +231,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kRowHeight)];
         label.tag = 100;
         label.textColor = [UIColor blackColor];
-        label.font = [UIFont systemFontOfSize:18.0];
+        label.font = [UIFont systemFontOfSize:17.0];
         label.textAlignment = NSTextAlignmentCenter;
         label.text = [NSString stringWithFormat:@"%@",[self.titles objectAtIndex:indexPath.row]];
         label.backgroundColor = [UIColor whiteColor];
@@ -239,7 +240,7 @@
     
     UILabel *label = [cell.contentView viewWithTag:100];
     if ([_destructiveButtonTitle length] && indexPath.row == 0) {
-        label.textColor = [UIColor redColor];
+        label.textColor = [UIColor redColor];//RGBColor(225.0, 59.0, 60.0, 1.0);
     }
     if ([_cancelButtonTitle length] && indexPath.row == [self.titles count]-1) {
         label.frame = CGRectMake(0, kBlank, kMainScreenWidth, kRowHeight);

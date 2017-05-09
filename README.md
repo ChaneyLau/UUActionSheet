@@ -10,7 +10,7 @@
 
 ## 安装[CocoaPods]
 
-1. `pod 'UUActionSheet', '~> 1.0'`;
+1. `pod 'UUActionSheet', '~> 1.2'`;
 2. `pod install` / `pod update`;
 3. `#import <UUActionSheet/UUActionSheet.h>`.
 

@@ -1,7 +1,0 @@
-platform :ios, ‘7.0’
-
-target 'UUActionSheetDemo' do
-
-    pod 'UUActionSheet', '~> 1.0’
-
-end

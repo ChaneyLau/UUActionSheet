@@ -2,12 +2,12 @@
 //  ViewController.m
 //  UUActionSheetDemo
 //
-//  Created by LEA on 2017/3/11.
+//  Created by LEA on 2017/5/9.
 //  Copyright © 2017年 LEA. All rights reserved.
 //
 
 #import "ViewController.h"
-#import <UUActionSheet/UUActionSheet.h>
+#import "UUActionSheet.h"
 
 @interface ViewController ()<UUActionSheetDelegate>
 
@@ -27,7 +27,6 @@
     [self.view addSubview:btn];
 }
 
-
 - (void)handleBtClicked:(UIButton *)bt
 {
     UUActionSheet *actionSheet = [[UUActionSheet alloc] initWithTitle:@"After the exit will not delete any historical data, the next login can still use this account."
@@ -37,7 +36,6 @@
                                                     otherButtonTitles:@"Okay",nil];
     [actionSheet showInView:self.view.window];
 }
-
 
 #pragma mark - UUActionSheetDelegate
 - (void)actionSheet:(UUActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

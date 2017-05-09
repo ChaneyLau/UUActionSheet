@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "0830"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8B9825601E743B4B00C2D104"
+               BlueprintIdentifier = "8B66EB151EC1C29300EAAEF5"
                BuildableName = "UUActionSheetDemo.app"
                BlueprintName = "UUActionSheetDemo"
                ReferencedContainer = "container:UUActionSheetDemo.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8B9825601E743B4B00C2D104"
+            BlueprintIdentifier = "8B66EB151EC1C29300EAAEF5"
             BuildableName = "UUActionSheetDemo.app"
             BlueprintName = "UUActionSheetDemo"
             ReferencedContainer = "container:UUActionSheetDemo.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8B9825601E743B4B00C2D104"
+            BlueprintIdentifier = "8B66EB151EC1C29300EAAEF5"
             BuildableName = "UUActionSheetDemo.app"
             BlueprintName = "UUActionSheetDemo"
             ReferencedContainer = "container:UUActionSheetDemo.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8B9825601E743B4B00C2D104"
+            BlueprintIdentifier = "8B66EB151EC1C29300EAAEF5"
             BuildableName = "UUActionSheetDemo.app"
             BlueprintName = "UUActionSheetDemo"
             ReferencedContainer = "container:UUActionSheetDemo.xcodeproj">
