@@ -12,30 +12,28 @@
 #define kMainScreenHeight       [UIScreen mainScreen].bounds.size.height
 #define kRowHeight              50
 #define kBlank                  5
-#define RGBColor(r,g,b,a)       [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
 @interface UUActionSheet () <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic, strong) UITableView       *tableView;
-@property (nonatomic, strong) UIView            *tableHeaderView;
-@property (nonatomic, strong) UIView            *sheetView;
-@property (nonatomic, strong) UIView            *alphaView;
-@property (nonatomic, strong) NSMutableArray    *titles;
-@property (nonatomic, copy) NSString            *cancelButtonTitle;
-@property (nonatomic, copy) NSString            *destructiveButtonTitle;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *tableHeaderView;
+
+@property (nonatomic, strong) NSMutableArray<NSString *> *titles;
+@property (nonatomic, copy) NSString *cancelButtonTitle;
+@property (nonatomic, copy) NSString  *destructiveButtonTitle;
 
 @end
 
 @implementation UUActionSheet
 
-#pragma mark - init
+#pragma mark - 初始化
 - (UUActionSheet *)initWithTitle:(NSString *)title delegate:(id<UUActionSheetDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...
 {
     self = [super init];
     if (self)
     {
         self.userInteractionEnabled = YES;
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.0];;
         self.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
         
         if (delegate) {
@@ -65,31 +63,31 @@
             self.cancelButtonIndex = [self.titles count]-1;
         }
         
-        [self setupUI];
+        [self addSubview:self.tableView];
     }
     return self;
 }
 
-- (void)tapGestureCallback
-{
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         self.alphaView.alpha = 0;
-                         [self.sheetView setFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, self.sheetView.frame.size.height)];
-                     }
-                     completion:^(BOOL finished) {
-                         [self removeFromSuperview];
-                     }];
-}
-
+#pragma mark - 显示|隐藏
 - (void)showInView:(UIView *)view
 {
-    [view addSubview:self];
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         self.alphaView.alpha = 0.5;
-                         [self.sheetView setFrame:CGRectMake(0, kMainScreenHeight-self.sheetView.frame.size.height, kMainScreenWidth, self.sheetView.frame.size.height)];
-                     }];
+    __weak typeof(self) weakSelf = self;
+    [view addSubview:weakSelf];
+    [UIView animateWithDuration:0.25 animations:^{
+        weakSelf.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.5];
+        weakSelf.tableView.top = kMainScreenHeight-self.tableView.frame.size.height;
+    }];
+}
+
+- (void)hide
+{
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:0.25 animations:^{
+        weakSelf.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.0];
+        weakSelf.tableView.top = kMainScreenHeight;
+    } completion:^(BOOL finished) {
+        [weakSelf removeFromSuperview];
+    }];
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
@@ -98,30 +96,37 @@
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
-#pragma mark - UI
-- (void)setupUI
+#pragma mark - 点击隐藏
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self addSubview:self.alphaView];
-    [self sendSubviewToBack:self.alphaView];
-    
-    [self addSubview:self.sheetView];
-    [self.sheetView addSubview:self.tableView];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentPoint = [touch locationInView:self.superview];
+    if (CGRectContainsPoint(self.tableView.frame, currentPoint) == NO) {
+        [self hide];
+    }
 }
 
-#pragma mark - getter
+#pragma mark - 懒加载
 - (UITableView *)tableView
 {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:_sheetView.bounds];
+    if (!_tableView)
+    {
+        CGFloat h = [self getTableHeaderHeight];
+        if ([_cancelButtonTitle length]) {
+            h += kBlank;
+        }
+        h += [self.titles count] * kRowHeight;
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, h)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.alwaysBounceHorizontal = NO;
         _tableView.alwaysBounceVertical = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.separatorColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-        _tableView.separatorInset = UIEdgeInsetsZero;
+        _tableView.userInteractionEnabled = YES;
+        _tableView.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:237.0/255.0 blue:243.0/255.0 alpha:0.9];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableHeaderView = self.tableHeaderView;
     }
     return _tableView;
@@ -129,53 +134,25 @@
 
 - (UIView *)tableHeaderView
 {
-    if (!_tableHeaderView) {
-        _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, [self getHeadHeight])];
-        _tableHeaderView.backgroundColor = [UIColor whiteColor];
+    if (!_tableHeaderView)
+    {
+        CGFloat h = [self getTableHeaderHeight];
+        _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, h)];
+        _tableHeaderView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.7];
         
-        NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0]};
-        CGSize textSize = [_title boundingRectWithSize:CGSizeMake(kMainScreenWidth-40, MAXFLOAT)
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:dict
-                                               context:nil].size;
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kMainScreenWidth-40, textSize.height)];
-        label.text = _title;
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor grayColor];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kMainScreenWidth-40, h-30)];
         label.font = [UIFont systemFontOfSize:13.0];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.9];
         label.numberOfLines = 0;
+        label.text = _title;
         [_tableHeaderView addSubview:label];
         
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height, kMainScreenWidth, 0.5)];
-        lineView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-        [_tableHeaderView addSubview:lineView];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height, kMainScreenWidth, 0.5)];
+        line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+        [_tableHeaderView addSubview:line];
     }
     return _tableHeaderView;
-}
-
-- (UIView *)alphaView
-{
-    if (!_alphaView) {
-        _alphaView = [[UIView alloc] initWithFrame:self.bounds];
-        _alphaView.backgroundColor = [UIColor blackColor];
-        _alphaView.alpha = 0.0;
-        
-        UITapGestureRecognizer *tapGestureRecognizer  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureCallback)];
-        [_alphaView addGestureRecognizer:tapGestureRecognizer];
-    }
-    return _alphaView;
-}
-
-- (UIView *)sheetView
-{
-    if (!_sheetView) {
-        CGFloat addH = [_cancelButtonTitle length]?5:0;
-        CGFloat viewH = [self getHeadHeight]+kRowHeight*[self.titles count]+addH;
-        _sheetView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, viewH)];
-        _sheetView.backgroundColor =  RGBColor(232.0, 232.0, 239.0, 1.0);
-    }
-    return _sheetView;
 }
 
 - (NSMutableArray *)titles
@@ -186,23 +163,22 @@
     return _titles;
 }
 
-#pragma mark - methods
-- (CGFloat)getHeadHeight
+#pragma mark - 获取table头高度
+- (CGFloat)getTableHeaderHeight
 {
     CGFloat height = 0;
-    if ([_title length])
-    {
+    if ([_title length])  {
         NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0]};
         CGSize textSize = [_title boundingRectWithSize:CGSizeMake(kMainScreenWidth-40, MAXFLOAT)
                                                options:NSStringDrawingUsesLineFragmentOrigin
                                             attributes:dict
                                                context:nil].size;
-        height += textSize.height+40;
+        height = textSize.height+30;
     }
     return height;
 }
 
-#pragma mark - tableView delegate/dataSource
+#pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -213,6 +189,7 @@
     return [self.titles count];
 }
 
+#pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([_cancelButtonTitle length] && indexPath.row == [self.titles count]-1) {
@@ -223,7 +200,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier = @"identifier";
+    static NSString *identifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
@@ -231,31 +208,46 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kRowHeight)];
         label.tag = 100;
         label.textColor = [UIColor blackColor];
-        label.font = [UIFont systemFontOfSize:17.0];
+        label.font = [UIFont systemFontOfSize:18.0];
         label.textAlignment = NSTextAlignmentCenter;
-        label.text = [NSString stringWithFormat:@"%@",[self.titles objectAtIndex:indexPath.row]];
-        label.backgroundColor = [UIColor whiteColor];
+        label.text = [self.titles objectAtIndex:indexPath.row];
+        label.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.7];
         [cell.contentView addSubview:label];
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, kRowHeight-0.5, kMainScreenWidth, 0.5)];
+        line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
+        line.tag = 200;
+        [cell.contentView addSubview:line];
     }
     
     UILabel *label = [cell.contentView viewWithTag:100];
+    UIView *line = [cell.contentView viewWithTag:200];
+    line.hidden = NO;
     if ([_destructiveButtonTitle length] && indexPath.row == 0) {
-        label.textColor = [UIColor redColor];//RGBColor(225.0, 59.0, 60.0, 1.0);
+        label.textColor = [UIColor redColor];
+    }
+    if ([_cancelButtonTitle length] && indexPath.row == [self.titles count]-2) {
+        line.hidden = YES;
     }
     if ([_cancelButtonTitle length] && indexPath.row == [self.titles count]-1) {
         label.frame = CGRectMake(0, kBlank, kMainScreenWidth, kRowHeight);
+        line.frame = CGRectMake(0, kRowHeight+kBlank-0.5, kMainScreenWidth, 0.5);
     }
+    
+    UIView *V = [[UIView alloc] initWithFrame:CGRectMake(0, label.frame.origin.y, kMainScreenWidth, kRowHeight-1)];
+    V.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:239.0/255.0 alpha:0.7];
+    cell.selectedBackgroundView = V;
     cell.backgroundColor = [UIColor clearColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([self.delegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)]) {
         [self.delegate actionSheet:self clickedButtonAtIndex:indexPath.row];
     }
-    [self tapGestureCallback];
+    [self hide];
 }
 
 @end

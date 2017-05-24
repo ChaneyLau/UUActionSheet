@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @protocol UUActionSheetDelegate;
-
 @interface UUActionSheet : UIView
 
 - (UUActionSheet *)initWithTitle:(NSString *)title delegate:(id<UUActionSheetDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...;
