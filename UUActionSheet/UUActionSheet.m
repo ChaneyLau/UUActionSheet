@@ -75,7 +75,9 @@
     [view addSubview:weakSelf];
     [UIView animateWithDuration:0.25 animations:^{
         weakSelf.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.5];
-        weakSelf.tableView.top = kMainScreenHeight-self.tableView.frame.size.height;
+        CGRect frame = weakSelf.tableView.frame;
+        frame.origin.y = kMainScreenHeight-weakSelf.tableView.frame.size.height;
+        weakSelf.tableView.frame = frame;
     }];
 }
 
@@ -84,7 +86,9 @@
     __weak typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.25 animations:^{
         weakSelf.backgroundColor = [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.0];
-        weakSelf.tableView.top = kMainScreenHeight;
+        CGRect frame = weakSelf.tableView.frame;
+        frame.origin.y = kMainScreenHeight;
+        weakSelf.tableView.frame = frame;
     } completion:^(BOOL finished) {
         [weakSelf removeFromSuperview];
     }];
@@ -138,14 +142,14 @@
     {
         CGFloat h = [self getTableHeaderHeight];
         _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, h)];
-        _tableHeaderView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.7];
+        _tableHeaderView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.8];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kMainScreenWidth-40, h-30)];
-        label.font = [UIFont systemFontOfSize:13.0];
-        label.textAlignment = NSTextAlignmentCenter;
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kMainScreenWidth-40, h-40)];
+        label.font = [UIFont systemFontOfSize:13.0];        label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.9];
         label.numberOfLines = 0;
         label.text = _title;
+        label.backgroundColor = [UIColor clearColor];
         [_tableHeaderView addSubview:label];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, _tableHeaderView.frame.size.height, kMainScreenWidth, 0.5)];
@@ -168,12 +172,12 @@
 {
     CGFloat height = 0;
     if ([_title length])  {
-        NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0]};
+        NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:13.0]};
         CGSize textSize = [_title boundingRectWithSize:CGSizeMake(kMainScreenWidth-40, MAXFLOAT)
                                                options:NSStringDrawingUsesLineFragmentOrigin
                                             attributes:dict
                                                context:nil].size;
-        height = textSize.height+30;
+        height = textSize.height+40;
     }
     return height;
 }
@@ -211,7 +215,7 @@
         label.font = [UIFont systemFontOfSize:18.0];
         label.textAlignment = NSTextAlignmentCenter;
         label.text = [self.titles objectAtIndex:indexPath.row];
-        label.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.7];
+        label.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.8];
         [cell.contentView addSubview:label];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, kRowHeight-0.5, kMainScreenWidth, 0.5)];
@@ -235,7 +239,7 @@
     }
     
     UIView *V = [[UIView alloc] initWithFrame:CGRectMake(0, label.frame.origin.y, kMainScreenWidth, kRowHeight-1)];
-    V.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:239.0/255.0 alpha:0.7];
+    V.backgroundColor = [UIColor colorWithRed:239.0/255.0 green:239.0/255.0 blue:239.0/255.0 alpha:0.8];
     cell.selectedBackgroundView = V;
     cell.backgroundColor = [UIColor clearColor];
     return cell;
