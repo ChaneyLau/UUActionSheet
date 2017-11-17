@@ -29,7 +29,7 @@
 
 - (void)handleBtClicked:(UIButton *)bt
 {
-    UUActionSheet *actionSheet = [[UUActionSheet alloc] initWithTitle:@"After the exit will not delete any historical data, the next login can still use this account."
+    UUActionSheet *actionSheet = [[UUActionSheet alloc] initWithTitle:@"After the exit will not delete any historical data, the next login can still use this account.After the exit will not delete any historical data, the next login can still use this account.After the exit will not delete any historical data, the next login can still use this account.After the exit will not delete any historical data, the next login can still use this account.After the exit will not delete any historical data, the next login can still use this account."
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:@"Logout"

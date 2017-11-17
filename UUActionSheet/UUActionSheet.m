@@ -8,19 +8,22 @@
 
 #import "UUActionSheet.h"
 
+// 屏幕物理宽度
 #define kMainScreenWidth        [UIScreen mainScreen].bounds.size.width
+// 屏幕物理高度
 #define kMainScreenHeight       [UIScreen mainScreen].bounds.size.height
+// 行高
 #define kRowHeight              50
+// 边距
 #define kBlank                  5
 
 @interface UUActionSheet () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *tableHeaderView;
-
-@property (nonatomic, strong) NSMutableArray<NSString *> *titles;
 @property (nonatomic, copy) NSString *cancelButtonTitle;
 @property (nonatomic, copy) NSString  *destructiveButtonTitle;
+@property (nonatomic, strong) NSMutableArray<NSString *> *titles;
 
 @end
 
