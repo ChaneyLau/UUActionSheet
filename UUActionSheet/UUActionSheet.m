@@ -16,6 +16,8 @@
 #define kRowHeight              50
 // 边距
 #define kBlank                  5
+// iPhone X
+#define kIphoneX                CGSizeEqualToSize(CGSizeMake(1125,2436), [[[UIScreen mainScreen] currentMode] size]) 
 
 @interface UUActionSheet () <UITableViewDataSource,UITableViewDelegate>
 
@@ -123,6 +125,9 @@
             h += kBlank;
         }
         h += [self.titles count] * kRowHeight;
+        if (kIphoneX) {
+            h += 30;
+        }
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, h)];
         _tableView.delegate = self;
