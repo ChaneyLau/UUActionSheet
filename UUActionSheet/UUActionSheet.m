@@ -137,6 +137,7 @@
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.userInteractionEnabled = YES;
+        _tableView.scrollEnabled = NO;
         _tableView.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:237.0/255.0 blue:243.0/255.0 alpha:0.9];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableHeaderView = self.tableHeaderView;
