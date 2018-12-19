@@ -14,6 +14,10 @@
 		8B66EB261EC1C29500EAAEF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B66EB251EC1C29500EAAEF5 /* Assets.xcassets */; };
 		8B66EB291EC1C29500EAAEF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B66EB271EC1C29500EAAEF5 /* LaunchScreen.storyboard */; };
 		8B66EB331EC1C2A600EAAEF5 /* UUActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B66EB321EC1C2A600EAAEF5 /* UUActionSheet.m */; };
+		FA9171C521CA1E0200CB77DA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FA9171C121CA1E0200CB77DA /* README.md */; };
+		FA9171C621CA1E0200CB77DA /* UUActionSheet.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FA9171C221CA1E0200CB77DA /* UUActionSheet.podspec */; };
+		FA9171C721CA1E0200CB77DA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = FA9171C321CA1E0200CB77DA /* LICENSE */; };
+		FA9171C821CA1E0200CB77DA /* UUActionSheet.gif in Resources */ = {isa = PBXBuildFile; fileRef = FA9171C421CA1E0200CB77DA /* UUActionSheet.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,10 @@
 		8B66EB2A1EC1C29500EAAEF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B66EB311EC1C2A600EAAEF5 /* UUActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUActionSheet.h; sourceTree = "<group>"; };
 		8B66EB321EC1C2A600EAAEF5 /* UUActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUActionSheet.m; sourceTree = "<group>"; };
+		FA9171C121CA1E0200CB77DA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		FA9171C221CA1E0200CB77DA /* UUActionSheet.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = UUActionSheet.podspec; path = ../UUActionSheet.podspec; sourceTree = "<group>"; };
+		FA9171C321CA1E0200CB77DA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		FA9171C421CA1E0200CB77DA /* UUActionSheet.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = UUActionSheet.gif; path = ../UUActionSheet.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,11 +94,23 @@
 		8B66EB301EC1C2A600EAAEF5 /* UUActionSheet */ = {
 			isa = PBXGroup;
 			children = (
+				FA9171C021CA1DE900CB77DA /* Pod */,
 				8B66EB311EC1C2A600EAAEF5 /* UUActionSheet.h */,
 				8B66EB321EC1C2A600EAAEF5 /* UUActionSheet.m */,
 			);
 			name = UUActionSheet;
 			path = ../../UUActionSheet;
+			sourceTree = "<group>";
+		};
+		FA9171C021CA1DE900CB77DA /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				FA9171C221CA1E0200CB77DA /* UUActionSheet.podspec */,
+				FA9171C121CA1E0200CB77DA /* README.md */,
+				FA9171C321CA1E0200CB77DA /* LICENSE */,
+				FA9171C421CA1E0200CB77DA /* UUActionSheet.gif */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,8 +172,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9171C721CA1E0200CB77DA /* LICENSE in Resources */,
 				8B66EB291EC1C29500EAAEF5 /* LaunchScreen.storyboard in Resources */,
 				8B66EB261EC1C29500EAAEF5 /* Assets.xcassets in Resources */,
+				FA9171C521CA1E0200CB77DA /* README.md in Resources */,
+				FA9171C821CA1E0200CB77DA /* UUActionSheet.gif in Resources */,
+				FA9171C621CA1E0200CB77DA /* UUActionSheet.podspec in Resources */,
 				8B66EB241EC1C29400EAAEF5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,6 +351,7 @@
 				8B66EB2F1EC1C29500EAAEF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

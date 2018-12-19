@@ -7,7 +7,7 @@
 ![UUActionSheet](UUActionSheet.gif)
 
 
-自定义样式的ActionSheet，有点像WeChat或者新浪微博，使用方式和UIActionsheet相同，代理也是仿照UIActionSheet写的。
+自定义样式的`ActionSheet`，有点像WeChat或者新浪微博，使用方式和`UIActionsheet`相同，代理也是仿照`UIActionSheet`写的。
 
 ## 安装[CocoaPods]
 
@@ -15,7 +15,7 @@
 2. `pod install` / `pod update`;
 3. `#import <UUActionSheet.h>`.
 
-For example：
+**示例：**
 
 ```objc
 UUActionSheet *actionSheet = [[UUActionSheet alloc] initWithTitle:@"After the exit will not delete any historical data, the next login can still use this account."
