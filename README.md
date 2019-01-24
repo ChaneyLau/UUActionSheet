@@ -1,6 +1,6 @@
 # UUActionSheet
 
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/CheeryLau/UUActionSheet/master/LICENSE)&nbsp;
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://raw.githubusercontent.com/ChellyLau/UUActionSheet/master/LICENSE)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/UUActionSheet.svg?style=flat)](https://cocoapods.org/pods/UUActionSheet)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/p/UUActionSheet.svg?style=flat)](https://cocoapods.org/pods/UUActionSheet)&nbsp;
 
@@ -36,5 +36,5 @@ UUActionSheet *actionSheet = [[UUActionSheet alloc] initWithTitle:@"After the ex
 
 ## 后记
 
-不定时更新，如有问题欢迎给我[留言](https://github.com/CheeryLau/UUActionSheet/issues)，我会及时回复。如果这个工具对你有一些帮助，请给我一个star，谢谢。
+不定时更新，如有问题欢迎给我[留言](https://github.com/ChellyLau/UUActionSheet/issues)，我会及时回复。如果这个工具对你有一些帮助，请给我一个star，谢谢。
 
