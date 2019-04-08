@@ -19,9 +19,10 @@
 {
     [super viewDidLoad];
     
-    UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(50, (self.view.bounds.size.height-50)/2, self.view.bounds.size.width-100, 50)];
+    UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 150, 50)];
     btn.backgroundColor = [UIColor lightGrayColor];
-    [btn setTitle:@"Click Here" forState:UIControlStateNormal];
+    btn.center = self.view.center;
+    [btn setTitle:@"点击这里" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(handleClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
@@ -29,11 +30,11 @@
 
 - (void)handleClicked:(UIButton *)bt
 {
-    UUActionSheet * actionSheet = [[UUActionSheet alloc] initWithTitle:@"After the exit will not delete any historical data, the next login can still use this account."
+    UUActionSheet * actionSheet = [[UUActionSheet alloc] initWithTitle:@"退出后不会删除任何历史数据，下次登录依然可以使用本账号。"
                                                               delegate:self
-                                                     cancelButtonTitle:@"Cancel"
-                                                destructiveButtonTitle:@"Logout"
-                                                     otherButtonTitles:@"Okay",nil];
+                                                     cancelButtonTitle:@"取消"
+                                                destructiveButtonTitle:@"退出登录"
+                                                     otherButtonTitles:@"换账号登录",nil];
     [actionSheet showInView:self.view.window];
 }
 

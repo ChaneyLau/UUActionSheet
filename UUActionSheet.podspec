@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "UUActionSheet"
-  s.version          = "1.7"
+  s.version          = "1.8"
   s.summary          = "An actionSheet used on iOS."
   s.homepage         = "https://github.com/CheeryLau/UUActionSheet"
   s.license          = 'MIT'

@@ -13,11 +13,9 @@
 		8B66EB241EC1C29400EAAEF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B66EB221EC1C29400EAAEF5 /* Main.storyboard */; };
 		8B66EB261EC1C29500EAAEF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B66EB251EC1C29500EAAEF5 /* Assets.xcassets */; };
 		8B66EB291EC1C29500EAAEF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B66EB271EC1C29500EAAEF5 /* LaunchScreen.storyboard */; };
-		8B66EB331EC1C2A600EAAEF5 /* UUActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B66EB321EC1C2A600EAAEF5 /* UUActionSheet.m */; };
-		FA9171C521CA1E0200CB77DA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FA9171C121CA1E0200CB77DA /* README.md */; };
-		FA9171C621CA1E0200CB77DA /* UUActionSheet.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FA9171C221CA1E0200CB77DA /* UUActionSheet.podspec */; };
-		FA9171C721CA1E0200CB77DA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = FA9171C321CA1E0200CB77DA /* LICENSE */; };
-		FA9171C821CA1E0200CB77DA /* UUActionSheet.gif in Resources */ = {isa = PBXBuildFile; fileRef = FA9171C421CA1E0200CB77DA /* UUActionSheet.gif */; };
+		FA067ADA225B4735008FFFB3 /* UUActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = FA067AD9225B4734008FFFB3 /* UUActionSheet.m */; };
+		FA067ADE225B4754008FFFB3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FA067ADC225B4754008FFFB3 /* README.md */; };
+		FA067ADF225B4754008FFFB3 /* UUActionSheet.podspec in Resources */ = {isa = PBXBuildFile; fileRef = FA067ADD225B4754008FFFB3 /* UUActionSheet.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,12 +29,10 @@
 		8B66EB251EC1C29500EAAEF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B66EB281EC1C29500EAAEF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B66EB2A1EC1C29500EAAEF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B66EB311EC1C2A600EAAEF5 /* UUActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUActionSheet.h; sourceTree = "<group>"; };
-		8B66EB321EC1C2A600EAAEF5 /* UUActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUActionSheet.m; sourceTree = "<group>"; };
-		FA9171C121CA1E0200CB77DA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		FA9171C221CA1E0200CB77DA /* UUActionSheet.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = UUActionSheet.podspec; path = ../UUActionSheet.podspec; sourceTree = "<group>"; };
-		FA9171C321CA1E0200CB77DA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		FA9171C421CA1E0200CB77DA /* UUActionSheet.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = UUActionSheet.gif; path = ../UUActionSheet.gif; sourceTree = "<group>"; };
+		FA067AD8225B4734008FFFB3 /* UUActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUActionSheet.h; sourceTree = "<group>"; };
+		FA067AD9225B4734008FFFB3 /* UUActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUActionSheet.m; sourceTree = "<group>"; };
+		FA067ADC225B4754008FFFB3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
+		FA067ADD225B4754008FFFB3 /* UUActionSheet.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = UUActionSheet.podspec; path = ../../UUActionSheet.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +65,8 @@
 		8B66EB181EC1C29300EAAEF5 /* UUActionSheetDemo */ = {
 			isa = PBXGroup;
 			children = (
-				8B66EB301EC1C2A600EAAEF5 /* UUActionSheet */,
+				FA067ADB225B4739008FFFB3 /* Pod */,
+				FA067AD7225B4734008FFFB3 /* UUActionSheet */,
 				8B66EB1C1EC1C29400EAAEF5 /* AppDelegate.h */,
 				8B66EB1D1EC1C29400EAAEF5 /* AppDelegate.m */,
 				8B66EB1F1EC1C29400EAAEF5 /* ViewController.h */,
@@ -91,24 +88,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8B66EB301EC1C2A600EAAEF5 /* UUActionSheet */ = {
+		FA067AD7225B4734008FFFB3 /* UUActionSheet */ = {
 			isa = PBXGroup;
 			children = (
-				FA9171C021CA1DE900CB77DA /* Pod */,
-				8B66EB311EC1C2A600EAAEF5 /* UUActionSheet.h */,
-				8B66EB321EC1C2A600EAAEF5 /* UUActionSheet.m */,
+				FA067AD8225B4734008FFFB3 /* UUActionSheet.h */,
+				FA067AD9225B4734008FFFB3 /* UUActionSheet.m */,
 			);
 			name = UUActionSheet;
 			path = ../../UUActionSheet;
 			sourceTree = "<group>";
 		};
-		FA9171C021CA1DE900CB77DA /* Pod */ = {
+		FA067ADB225B4739008FFFB3 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				FA9171C221CA1E0200CB77DA /* UUActionSheet.podspec */,
-				FA9171C121CA1E0200CB77DA /* README.md */,
-				FA9171C321CA1E0200CB77DA /* LICENSE */,
-				FA9171C421CA1E0200CB77DA /* UUActionSheet.gif */,
+				FA067ADD225B4754008FFFB3 /* UUActionSheet.podspec */,
+				FA067ADC225B4754008FFFB3 /* README.md */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
@@ -144,7 +138,6 @@
 				TargetAttributes = {
 					8B66EB151EC1C29300EAAEF5 = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = GRSZLFFNPH;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -172,12 +165,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA9171C721CA1E0200CB77DA /* LICENSE in Resources */,
 				8B66EB291EC1C29500EAAEF5 /* LaunchScreen.storyboard in Resources */,
 				8B66EB261EC1C29500EAAEF5 /* Assets.xcassets in Resources */,
-				FA9171C521CA1E0200CB77DA /* README.md in Resources */,
-				FA9171C821CA1E0200CB77DA /* UUActionSheet.gif in Resources */,
-				FA9171C621CA1E0200CB77DA /* UUActionSheet.podspec in Resources */,
+				FA067ADE225B4754008FFFB3 /* README.md in Resources */,
+				FA067ADF225B4754008FFFB3 /* UUActionSheet.podspec in Resources */,
 				8B66EB241EC1C29400EAAEF5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,7 +183,7 @@
 				8B66EB211EC1C29400EAAEF5 /* ViewController.m in Sources */,
 				8B66EB1E1EC1C29400EAAEF5 /* AppDelegate.m in Sources */,
 				8B66EB1B1EC1C29300EAAEF5 /* main.m in Sources */,
-				8B66EB331EC1C2A600EAAEF5 /* UUActionSheet.m in Sources */,
+				FA067ADA225B4735008FFFB3 /* UUActionSheet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +250,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -301,7 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -312,11 +303,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = GRSZLFFNPH;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UUActionSheetDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lea.UUActionSheetDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -324,11 +319,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = GRSZLFFNPH;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UUActionSheetDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lea.UUActionSheetDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
