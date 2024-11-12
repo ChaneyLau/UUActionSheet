@@ -6,7 +6,7 @@
 [![Support](https://img.shields.io/badge/support-iOS%208%2B%20-blue.svg?style=flat)](https://www.apple.com/nl/ios/)&nbsp;
 
 
-自定义样式的`ActionSheet`，有点像WeChat或者新浪微博，使用方式和`UIActionsheet`相同，代理也是仿照`UIActionSheet`写的。
+自定义样式的`ActionSheet`，使用方式和`UIActionsheet`相同，代理也是仿照`UIActionSheet`写的。
 
 
 ## 使用 
@@ -31,15 +31,10 @@ UUActionSheet *actionSheet = [[UUActionSheet alloc] initWithTitle:@"退出后不
 #pragma mark - UUActionSheetDelegate
 - (void)actionSheet:(UUActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"buttonIndex:%ld",buttonIndex);
+    NSLog(@"buttonIndex: %ld",buttonIndex);
 }
 ```
 
 ## 效果图
 
 ![UUActionSheet](Screenshot.png)
-
-## 后记
-
-不定时更新，如有问题欢迎给我[留言](https://github.com/ChaneyLau/UUActionSheet/issues)，我会及时回复。如果这个工具对你有一些帮助，请给我一个star，谢谢🌹🌹。
-

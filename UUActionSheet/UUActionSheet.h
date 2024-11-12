@@ -14,7 +14,7 @@
 - (UUActionSheet *)initWithTitle:(NSString *)title delegate:(id<UUActionSheetDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...;
 
 @property (nonatomic, weak) id<UUActionSheetDelegate> delegate;
-@property (nonatomic, copy) NSString * title;
+@property (nonatomic, copy) NSString *title;
 @property (nonatomic) NSInteger cancelButtonIndex;
 @property (nonatomic) NSInteger destructiveButtonIndex;
 @property (nonatomic, readonly) NSInteger numberOfButtons;

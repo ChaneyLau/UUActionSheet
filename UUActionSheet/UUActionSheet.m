@@ -8,33 +8,42 @@
 
 #import "UUActionSheet.h"
 
-#define kDeviceHeight   [UIScreen mainScreen].bounds.size.height // 屏幕高度
-#define kDeviceWidth    [UIScreen mainScreen].bounds.size.width // 屏幕宽度
-#define k_iPhoneX       (kDeviceHeight >= 812.0f) // iPhone X系列
-#define kMargin         5 // 边距
-#define kRowHeight      50 // 行高
+CG_INLINE CGFloat UUSafeAreaHeight() {
+    
+    CGFloat height = 0;
+    if (@available(iOS 11.0, *)) {
+        UIWindow * mainWindow = [[[UIApplication sharedApplication] delegate] window];
+        height = mainWindow.safeAreaInsets.bottom;
+    }
+    return height;
+}
+#define kSafeAreaHeight     UUSafeAreaHeight() // 安全区域高度
+#define kMargin             5  // 间距
+#define kRowHeight          54 // 行高
 
 @interface UUActionSheet () <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic, strong) UITableView * tableView;
-@property (nonatomic, strong) NSMutableArray<NSString *> * titles;
-@property (nonatomic, copy) NSString * cancelButtonTitle;
-@property (nonatomic, copy) NSString  * destructiveButtonTitle;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray<NSString *> *titles;
+@property (nonatomic, copy) NSString *cancelButtonTitle;
+@property (nonatomic, copy) NSString *destructiveButtonTitle;
 
 @end
 
 @implementation UUActionSheet
 
-#pragma mark - 初始化
-- (UUActionSheet *)initWithTitle:(NSString *)title delegate:(id<UUActionSheetDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ...
+- (UUActionSheet *)initWithTitle:(NSString *)title
+                        delegate:(id<UUActionSheetDelegate>)delegate
+               cancelButtonTitle:(NSString *)cancelButtonTitle
+          destructiveButtonTitle:(NSString *)destructiveButtonTitle
+               otherButtonTitles:(NSString *)otherButtonTitles, ...
 {
     self = [super init];
-    if (self)
-    {
-        self.userInteractionEnabled = YES;
-        self.frame = [UIScreen mainScreen].bounds;
+    if (self) {
         self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-        
+        self.frame = [UIScreen mainScreen].bounds;
+        self.userInteractionEnabled = YES;
+
         _title = title;
         _delegate = delegate;
         _cancelButtonTitle = cancelButtonTitle;
@@ -42,7 +51,7 @@
         
         _titles = [[NSMutableArray alloc] init];
         va_list ap;
-        NSString * other = nil;
+        NSString *other = nil;
         if(otherButtonTitles) {
             [_titles addObject:otherButtonTitles];
             va_start(ap, otherButtonTitles);
@@ -66,45 +75,59 @@
 
 - (void)configUI
 {
-    // 表头 ↓↓
-    UIView * tableHeaderView = [[UIView alloc] init];
-    tableHeaderView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
-    // 标题
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, self.frame.size.width - 40, 0)];
-    label.backgroundColor = [UIColor clearColor];
-    label.numberOfLines = 0;
-    label.font = [UIFont systemFontOfSize:13.0];
-    label.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.9];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = _title;
-    [label sizeToFit];
-    [label setFrame:CGRectMake(20, 20, self.frame.size.width - 40, ceil(label.frame.size.height))];
-    [tableHeaderView addSubview:label];
-    [tableHeaderView setFrame:CGRectMake(0, 0, self.frame.size.width, label.frame.size.height + 40)];
-    // 分割线
-    UIView * line = [[UIView alloc] initWithFrame:CGRectMake(0, tableHeaderView.frame.size.height - 0.5, self.frame.size.width, 0.5)];
-    line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-    [tableHeaderView addSubview:line];
-    // 表格 ↓↓
-    CGFloat h = tableHeaderView.frame.size.height;
-    if ([_cancelButtonTitle length]) {
+    CGFloat h = 0;
+    if ([_cancelButtonTitle length] > 0) {
         h += kMargin;
     }
-    h += [self.titles count] * kRowHeight;
-    if (k_iPhoneX) {
-        h += 30;
-    }
-    UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, h)];
+    h += [_titles count] * kRowHeight + kSafeAreaHeight;
+
+    // 承载按钮
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero];
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.showsHorizontalScrollIndicator = NO;
     tableView.showsVerticalScrollIndicator = NO;
-    tableView.userInteractionEnabled = YES;
     tableView.scrollEnabled = NO;
-    tableView.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:237.0/255.0 blue:243.0/255.0 alpha:0.9];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    tableView.tableHeaderView = tableHeaderView;
+    if (@available(iOS 15.0, *)) {
+        tableView.sectionHeaderTopPadding = 0.0;
+    }
     [self addSubview:tableView];
+    
+    // 承载标题
+    if ([_title length] > 0) {
+        CGFloat title_h = [_title boundingRectWithSize:CGSizeMake(self.bounds.size.width - 50, MAXFLOAT)
+                                               options:NSStringDrawingUsesLineFragmentOrigin
+                                            attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13.0]}
+                                               context:NULL].size.height + 40;
+        
+        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, title_h)];
+        header.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+        // 标题
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, header.frame.size.width - 50, title_h)];
+        label.numberOfLines = 0;
+        label.font = [UIFont systemFontOfSize:13.0];
+        label.textColor = [UIColor colorWithWhite:0 alpha:0.5];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = _title;
+        [header addSubview:label];
+        // 分割线
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, header.frame.size.height - 0.5, header.frame.size.width, 0.5)];
+        line.backgroundColor = [UIColor colorWithWhite:0 alpha:0.07];
+        [header addSubview:line];
+        
+        tableView.frame = CGRectMake(0, self.frame.size.height, self.bounds.size.width, h + title_h);
+        tableView.tableHeaderView = header;
+    } else {
+        tableView.frame = CGRectMake(0, self.frame.size.height, self.frame.size.width, h);
+    }
+    
+    CGRect bounds = tableView.bounds;
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = bounds;
+    maskLayer.path = maskPath.CGPath;
+    tableView.layer.mask = maskLayer;
     self.tableView = tableView;
 }
 
@@ -113,7 +136,7 @@
 {
     [view addSubview:self];
     [UIView animateWithDuration:0.25 animations:^{
-        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
         CGRect frame = self.tableView.frame;
         frame.origin.y = self.frame.size.height - self.tableView.frame.size.height;
         self.tableView.frame = frame;
@@ -123,7 +146,7 @@
 - (void)dismiss
 {
     [UIView animateWithDuration:0.25 animations:^{
-        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
         CGRect frame = self.tableView.frame;
         frame.origin.y = self.frame.size.height;
         self.tableView.frame = frame;
@@ -134,7 +157,7 @@
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
 {
-    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:buttonIndex inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:buttonIndex];
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
@@ -151,64 +174,71 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [_titles count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_titles count];
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        cell.backgroundColor = [UIColor clearColor];
-
-        UILabel * label = [[UILabel alloc] init];
-        label.tag = 100;
-        label.textColor = [UIColor blackColor];
-        label.font = [UIFont systemFontOfSize:18.0];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, kRowHeight)];
+        label.tag = 2017;
+        label.font = [UIFont systemFontOfSize:17.0];
         label.textAlignment = NSTextAlignmentCenter;
-        label.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
         [cell.contentView addSubview:label];
         
-        UIView * line = [[UIView alloc] init];
-        line.tag = 200;
-        line.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5];
-        [cell.contentView addSubview:line];
+        CGFloat rowHeight = kRowHeight;
+        if ([_cancelButtonTitle length] && indexPath.row == [_titles count] - 1) {
+            rowHeight = kRowHeight + kSafeAreaHeight;
+        }
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, rowHeight)];
+        bgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+        cell.selectedBackgroundView = bgView;
     }
     
-    UILabel * label = [cell.contentView viewWithTag:100];
-    label.frame = CGRectMake(0, 0, self.frame.size.width, kRowHeight);
-    label.text = [self.titles objectAtIndex:indexPath.row];
-
-    UIView * line = [cell.contentView viewWithTag:200];
-    line.frame = CGRectMake(0, kRowHeight - 0.5, self.frame.size.width, 0.5);
-    line.hidden = NO;
-    if ([_destructiveButtonTitle length] && indexPath.row == 0) {
-        label.textColor = [UIColor redColor];
+    UILabel *label = [cell.contentView viewWithTag:2017];
+    label.text = [self.titles objectAtIndex:indexPath.section];
+    if ([_destructiveButtonTitle length] && indexPath.section == 0) {
+        label.textColor = [UIColor colorWithRed:227/255.0 green:83/255.0 blue:76/255.0 alpha:1.0];
+    } else {
+        label.textColor = [UIColor colorWithWhite:0 alpha:0.8];
     }
-    if ([_cancelButtonTitle length] && indexPath.row == [self.titles count] - 2) {
-        line.hidden = YES;
-    }
-    if ([_cancelButtonTitle length] && indexPath.row == [self.titles count] - 1) {
-        label.frame = CGRectMake(0, kMargin, self.frame.size.width, kRowHeight);
-        line.frame = CGRectMake(0, kRowHeight + kMargin - 0.5, self.frame.size.width, 0.5);
-    }
-    
-    UIView * bgView = [[UIView alloc] initWithFrame:CGRectMake(0, label.frame.origin.y, self.frame.size.width, kRowHeight - 1)];
-    bgView.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.94 alpha:0.8];
-    cell.selectedBackgroundView = bgView;
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (_cancelButtonTitle.length > 0 && section == [_titles count] - 2) {
+        return kMargin;
+    }
+    return 0.5;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footer = [UIView new];
+    if (_cancelButtonTitle.length > 0 && section == [_titles count] - 2) {
+        footer.frame = CGRectMake(0, 0, self.bounds.size.width, kMargin);
+        footer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.05];
+    } else {
+        footer.frame = CGRectMake(0, 0, self.bounds.size.width, 0.5);
+        footer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.07];
+    }
+    return footer;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([_cancelButtonTitle length] && indexPath.row == [_titles count] - 1) {
-        return kRowHeight + kMargin;
+    if ([_cancelButtonTitle length] && indexPath.section == [_titles count] - 1) {
+        return kRowHeight + kSafeAreaHeight;
     }
     return kRowHeight;
 }
@@ -217,7 +247,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([self.delegate respondsToSelector:@selector(actionSheet:clickedButtonAtIndex:)]) {
-        [self.delegate actionSheet:self clickedButtonAtIndex:indexPath.row];
+        [self.delegate actionSheet:self clickedButtonAtIndex:indexPath.section];
     }
     [self dismiss];
 }
